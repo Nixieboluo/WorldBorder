@@ -8,12 +8,12 @@ class SubCommandHelp extends SubCommand:
 
     override val permission = None
 
-    override val paramNums = Some(1 :: 2 :: Nil)
+    override val paramNums = None
 
     override val helpText = "Shows the help message of World Border."
 
     override def execute(sender: CommandSender, params: List[String]): Boolean =
-        sender.sendMessage(params.toString())
+        sender.sendMessage(this.helpText)
         true
 
 end SubCommandHelp
