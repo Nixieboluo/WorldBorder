@@ -1,0 +1,5 @@
+name: 'WorldBorder'
+version: '${version}'
+description: 'Configure a border for each world so players can not go beyond that.'
+main: 'me.sagirii.worldborder.WorldBorderPlugin'
+api-version: '1.20'
