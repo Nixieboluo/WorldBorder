@@ -6,4 +6,4 @@ import org.bukkit.plugin.java.JavaPlugin
 class WorldBorderPlugin extends JavaPlugin:
 
     override def onEnable(): Unit =
-        getLogger.info("Started")
+        this.getCommand("border").setExecutor(new WorldBorderCommand)
