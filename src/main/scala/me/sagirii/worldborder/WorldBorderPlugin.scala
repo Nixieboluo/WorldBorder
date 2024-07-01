@@ -36,6 +36,12 @@ class WorldBorderPlugin extends JavaPlugin:
 
     def updateConfig(newConfig: PluginConfig): Unit =
         config = newConfig
-        getLogger.info("Loaded configuration from the disk.")
+
+        // Save config to disk
+        WorldBorderConfig.save(plugin, newConfig)
+
+        getLogger.info("Configuration updated.")
+
+    end updateConfig
 
 end WorldBorderPlugin

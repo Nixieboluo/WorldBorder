@@ -43,4 +43,25 @@ object WorldBorderConfig:
 
     end load
 
+    def save(plugin: WorldBorderPlugin, config: PluginConfig): Unit =
+        val fileConfig = plugin.getConfig
+
+        fileConfig.set("borders", null)
+        for (name, border) <- config.borders do
+            val shape = border.shape.shapeType
+            fileConfig.set(s"borders.$name.world", border.world)
+            fileConfig.set(s"borders.$name.shape", shape)
+            border.shape match
+            case Rectangle(options) =>
+                fileConfig.set(s"borders.$name.options.xMin", options.xMin)
+                fileConfig.set(s"borders.$name.options.xMax", options.xMax)
+                fileConfig.set(s"borders.$name.options.zMin", options.zMin)
+                fileConfig.set(s"borders.$name.options.zMax", options.zMax)
+            end match
+        end for
+
+        plugin.saveConfig()
+
+    end save
+
 end WorldBorderConfig
