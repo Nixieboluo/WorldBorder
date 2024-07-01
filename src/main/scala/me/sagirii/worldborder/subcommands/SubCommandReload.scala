@@ -1,7 +1,8 @@
 package me.sagirii.worldborder.subcommands
 
-import me.sagirii.worldborder.{WorldBorderConfig, WorldBorderPlugin}
-import me.sagirii.worldborder.WorldBorderPlugin.{config, plugin}
+import me.sagirii.worldborder.WorldBorderConfig
+import me.sagirii.worldborder.WorldBorderPlugin
+import me.sagirii.worldborder.WorldBorderPlugin.plugin
 import org.bukkit.command.CommandSender
 
 class SubCommandReload extends SubCommand:

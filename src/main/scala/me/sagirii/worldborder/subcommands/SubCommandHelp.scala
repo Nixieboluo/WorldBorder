@@ -1,6 +1,5 @@
 package me.sagirii.worldborder.subcommands
 
-import me.sagirii.worldborder.WorldBorderConfig
 import me.sagirii.worldborder.WorldBorderPlugin
 import org.bukkit.command.CommandSender
 

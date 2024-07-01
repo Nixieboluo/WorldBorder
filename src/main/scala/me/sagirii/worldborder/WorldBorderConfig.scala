@@ -1,6 +1,7 @@
 package me.sagirii.worldborder
 
 import me.sagirii.worldborder.config.*
+
 import scala.jdk.CollectionConverters.*
 
 object WorldBorderConfig:

@@ -26,8 +26,9 @@ class WorldBorderPlugin extends JavaPlugin:
 
     override def onEnable(): Unit =
         if plugin == null then plugin = this
-        updateConfig(WorldBorderConfig.load(plugin))
 
+        // Load configuration
+        updateConfig(WorldBorderConfig.load(plugin))
         this.saveDefaultConfig()
 
         this.getCommand("border").setExecutor(new WorldBorderCommand)
