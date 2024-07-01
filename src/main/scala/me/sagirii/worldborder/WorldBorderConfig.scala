@@ -51,7 +51,7 @@ object WorldBorderConfig:
         for (name, border) <- config.borders do
             val shape = border.shape.shapeType
             fileConfig.set(s"borders.$name.world", border.world)
-            fileConfig.set(s"borders.$name.shape", shape)
+            fileConfig.set(s"borders.$name.shape", shape.toString)
             border.shape match
             case Rectangle(options) =>
                 fileConfig.set(s"borders.$name.options.xMin", options.xMin)
