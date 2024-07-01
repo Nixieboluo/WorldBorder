@@ -1,5 +1,7 @@
 package me.sagirii.worldborder.subcommands
 
+import me.sagirii.worldborder.WorldBorderConfig
+import me.sagirii.worldborder.WorldBorderPlugin
 import org.bukkit.command.CommandSender
 
 class SubCommandHelp extends SubCommand:
@@ -14,6 +16,7 @@ class SubCommandHelp extends SubCommand:
 
     override def execute(sender: CommandSender, params: List[String]): Boolean =
         sender.sendMessage(this.helpText)
+        sender.sendMessage(WorldBorderPlugin.config.borders.toString())
         true
 
 end SubCommandHelp

@@ -3,6 +3,7 @@ package me.sagirii.worldborder
 import me.sagirii.worldborder.WorldBorderCommand.subCommands
 import me.sagirii.worldborder.subcommands.SubCommand
 import me.sagirii.worldborder.subcommands.SubCommandHelp
+import me.sagirii.worldborder.subcommands.SubCommandReload
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player
 
 object WorldBorderCommand:
 
-    private val subCommandsList = List(new SubCommandHelp())
+    private val subCommandsList = List(new SubCommandHelp(), new SubCommandReload())
 
     val subCommands: Map[String, SubCommand] =
         subCommandsList.map(cmd => cmd.name -> cmd).toMap
@@ -33,9 +34,11 @@ class WorldBorderCommand extends CommandExecutor:
             // Do not accept commands that are not exist
             case Some(cmdString) =>
                 sender.sendMessage(s"Subcommand $cmdString not found, use /border help for help.")
-                return true
+                null
             end match
         end cmd
+
+        if cmd == null then return true
 
         val hasPermission = sender match
         // Ignore commands that does not require a permission
