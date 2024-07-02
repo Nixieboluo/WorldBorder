@@ -2,6 +2,7 @@ package me.sagirii.worldborder
 
 import me.sagirii.worldborder.utility.ShapeUtility.distanceToShape
 import me.sagirii.worldborder.utility.ShapeUtility.withinShape
+import me.sagirii.worldborder.utility.TpUtility
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
@@ -31,7 +32,7 @@ class WorldBorderCheckTask extends BukkitRunnable:
                         .map((name, border) => distanceToShape(loc, border.shape))
                         .minBy((x, z) => Math.pow(x, 2) + Math.pow(z, 2))
 
-                player.teleport(loc.add(-distanceX, 0.0, -distanceZ))
+                TpUtility.teleport(player, loc.add(-distanceX, 0.0, -distanceZ))
             end if
         end for
 
