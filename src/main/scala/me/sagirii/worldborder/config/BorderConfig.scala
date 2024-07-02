@@ -24,3 +24,12 @@ case class Rectangle(options: RectangleOptions) extends BorderShape:
     override def shapeType = BorderShapeType.RECTANGLE
 
 case class RectangleOptions(xMin: Int, xMax: Int, zMin: Int, zMax: Int)
+
+object RectangleOptions:
+
+    def apply(xMin: Int, xMax: Int, zMin: Int, zMax: Int): RectangleOptions =
+        require(xMin < xMax, "xMin must be less than xMax")
+        require(zMin < zMax, "zMin must be less than zMax")
+        new RectangleOptions(xMin, xMax, zMin, zMax)
+
+end RectangleOptions
