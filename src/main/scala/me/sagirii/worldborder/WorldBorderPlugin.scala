@@ -27,7 +27,7 @@ class WorldBorderPlugin extends JavaPlugin:
     override def onEnable(): Unit =
         if plugin == null then plugin = this
 
-        // Load configuration
+        // Load configuration and register tasks and listeners
         updateConfig(WorldBorderConfig.load(plugin))
         this.saveDefaultConfig()
 
@@ -40,6 +40,10 @@ class WorldBorderPlugin extends JavaPlugin:
 
         // Save config to disk
         WorldBorderConfig.save(plugin, newConfig)
+
+        // Restart tasks
+        this.getServer.getScheduler.cancelTasks(this)
+        new WorldBorderCheckTask().runTaskTimer(this, 0L, 10L)
 
         getLogger.info("Configuration updated.")
 
