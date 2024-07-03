@@ -15,14 +15,10 @@ class SubCommandReload extends SubCommand:
 
     override val helpText = "Reloads configuration from disk."
 
-    override def execute(
-        sender: CommandSender,
-        params: List[String]
-    ): Boolean =
+    override def execute(sender: CommandSender, params: List[String]): Boolean =
         val plugin = WorldBorderPlugin.plugin
         plugin.updateConfig(WorldBorderConfig.load(plugin))
         sender.sendMessage("Config reloaded from disk.")
         true
-    end execute
 
 end SubCommandReload

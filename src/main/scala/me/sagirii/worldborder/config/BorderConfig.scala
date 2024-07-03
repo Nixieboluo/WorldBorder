@@ -8,12 +8,9 @@ object BorderShapeType extends Enumeration:
 
     val RECTANGLE: Value = Value
 
-    def fromString(shape: String): ShapeType =
-        shape match
-        case "RECTANGLE" => RECTANGLE
-        case _           => throw new IllegalArgumentException(s"Unknown shape type: $shape")
-
-end BorderShapeType
+    def fromString(shape: String): ShapeType = shape match
+    case "RECTANGLE" => RECTANGLE
+    case _           => throw new IllegalArgumentException(s"Unknown shape type: $shape")
 
 sealed trait BorderShape:
 
@@ -31,5 +28,3 @@ object RectangleOptions:
         require(xMin < xMax, "xMin must be less than xMax")
         require(zMin < zMax, "zMin must be less than zMax")
         new RectangleOptions(xMin, xMax, zMin, zMax)
-
-end RectangleOptions

@@ -27,13 +27,12 @@ class WorldBorderCheckTask extends BukkitRunnable:
 
             // Teleport player back into the closest border
             if !withinBorder then
-                val (distanceX, distanceZ) =
-                    bordersInWorld
-                        .map((name, border) => distanceToShape(loc, border.shape))
-                        .minBy((x, z) => Math.pow(x, 2) + Math.pow(z, 2))
+                val (distanceX, distanceZ) = bordersInWorld
+                    .map((name, border) => distanceToShape(loc, border.shape))
+                    .minBy((x, z) => Math.pow(x, 2) + Math.pow(z, 2))
 
                 TpUtility.teleport(player, loc.add(-distanceX, 0.0, -distanceZ))
-            end if
+
         end for
 
     end run

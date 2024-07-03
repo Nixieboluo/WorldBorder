@@ -8,12 +8,10 @@ object ShapeUtility:
 
     def withinShape(loc: Location, border: BorderShape): Boolean =
         border match
-        case Rectangle(options) =>
-            !(loc.getX < options.xMin || loc.getX > options.xMax ||
+        case Rectangle(options) => !(loc.getX < options.xMin || loc.getX > options.xMax ||
                 loc.getZ < options.zMin || loc.getZ > options.zMax)
         case _ => false
         end match
-    end withinShape
 
     def distanceToShape(loc: Location, border: BorderShape): (Double, Double) =
         border match
@@ -38,6 +36,7 @@ object ShapeUtility:
 
             (distanceX, distanceZ)
         end match
+
     end distanceToShape
 
 end ShapeUtility

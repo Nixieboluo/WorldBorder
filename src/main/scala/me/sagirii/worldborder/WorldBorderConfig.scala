@@ -21,21 +21,17 @@ object WorldBorderConfig:
             for (name <- bordersSection.getKeys(false).asScala.toSeq) yield
                 val borderItemSection = bordersSection.getConfigurationSection(name)
                 val world             = borderItemSection.getString("world")
-                val shape             = BorderShapeType.fromString(borderItemSection.getString("shape"))
                 val optionsSection    = borderItemSection.getConfigurationSection("options")
+                val shape = BorderShapeType.fromString(borderItemSection.getString("shape"))
                 val shapeConfig =
                     shape match
-                    case BorderShapeType.RECTANGLE =>
-                        Rectangle(
-                          RectangleOptions(
-                            optionsSection.getInt("xMin"),
-                            optionsSection.getInt("xMax"),
-                            optionsSection.getInt("zMin"),
-                            optionsSection.getInt("zMax")
-                          )
-                        )
+                    case BorderShapeType.RECTANGLE => Rectangle(RectangleOptions(
+                          optionsSection.getInt("xMin"),
+                          optionsSection.getInt("xMax"),
+                          optionsSection.getInt("zMin"),
+                          optionsSection.getInt("zMax")
+                        ))
                     end match
-                end shapeConfig
 
                 name -> BorderConfig(world, shapeConfig)
         }.toMap
@@ -58,8 +54,6 @@ object WorldBorderConfig:
                 fileConfig.set(s"borders.$name.options.xMax", options.xMax)
                 fileConfig.set(s"borders.$name.options.zMin", options.zMin)
                 fileConfig.set(s"borders.$name.options.zMax", options.zMax)
-            end match
-        end for
 
         plugin.saveConfig()
 

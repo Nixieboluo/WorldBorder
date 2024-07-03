@@ -17,5 +17,3 @@ class SubCommandHelp extends SubCommand:
         sender.sendMessage(this.helpText)
         sender.sendMessage(WorldBorderPlugin.config.borders.toString())
         true
-
-end SubCommandHelp

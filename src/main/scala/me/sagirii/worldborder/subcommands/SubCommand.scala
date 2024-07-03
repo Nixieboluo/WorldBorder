@@ -12,12 +12,6 @@ trait SubCommand:
 
     val helpText: String
 
-    def execute(
-        sender: CommandSender,
-        params: List[String]
-    ): Boolean
+    def execute(sender: CommandSender, params: List[String]): Boolean
 
-    def showHelp(sender: CommandSender): Unit =
-        sender.sendMessage(this.helpText)
-
-end SubCommand
+    def showHelp(sender: CommandSender): Unit = sender.sendMessage(this.helpText)

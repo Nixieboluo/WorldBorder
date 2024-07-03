@@ -8,9 +8,11 @@ import org.bukkit.plugin.java.JavaPlugin
 
 object WorldBorderPlugin:
 
-    @volatile private var _plugin: WorldBorderPlugin = _
+    @volatile
+    private var _plugin: WorldBorderPlugin = _
 
-    @volatile private var _config: PluginConfig = _
+    @volatile
+    private var _config: PluginConfig = _
 
     def plugin: WorldBorderPlugin = _plugin
 
@@ -33,8 +35,6 @@ class WorldBorderPlugin extends JavaPlugin:
 
         this.getCommand("border").setExecutor(new WorldBorderCommand)
 
-    end onEnable
-
     def updateConfig(newConfig: PluginConfig): Unit =
         config = newConfig
 
@@ -46,7 +46,5 @@ class WorldBorderPlugin extends JavaPlugin:
         new WorldBorderCheckTask().runTaskTimer(this, 0L, 10L)
 
         getLogger.info("Configuration updated.")
-
-    end updateConfig
 
 end WorldBorderPlugin

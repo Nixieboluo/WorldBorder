@@ -13,10 +13,7 @@ object WorldBorderCommand:
 
     private val subCommandsList = List(new SubCommandHelp(), new SubCommandReload())
 
-    val subCommands: Map[String, SubCommand] =
-        subCommandsList.map(cmd => cmd.name -> cmd).toMap
-
-end WorldBorderCommand
+    val subCommands: Map[String, SubCommand] = subCommandsList.map(cmd => cmd.name -> cmd).toMap
 
 class WorldBorderCommand extends CommandExecutor:
 
@@ -36,7 +33,6 @@ class WorldBorderCommand extends CommandExecutor:
                 sender.sendMessage(s"Subcommand $cmdString not found, use /border help for help.")
                 null
             end match
-        end cmd
 
         if cmd == null then return true
 

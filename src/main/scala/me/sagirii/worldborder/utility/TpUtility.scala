@@ -29,7 +29,6 @@ object TpUtility:
 
                 // Remount player onto the vehicle
                 ride.addPassenger(player)
-            end if
         end if
 
         // If the player have something ride on them
@@ -39,9 +38,9 @@ object TpUtility:
             for passenger <- passengers do
                 passenger.teleport(location, TeleportCause.PLUGIN)
                 player.sendMessage("Your passengers have been ejected.")
-        end if
 
         player.teleport(location, TeleportCause.PLUGIN)
+
     end teleport
 
 end TpUtility

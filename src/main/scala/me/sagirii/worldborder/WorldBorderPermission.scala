@@ -8,5 +8,3 @@ object WorldBorderPermission:
         val has = player.hasPermission(s"worldborder.$perm")
         if notify && !has then player.sendMessage("You do not have sufficient permissions.")
         has
-
-end WorldBorderPermission
