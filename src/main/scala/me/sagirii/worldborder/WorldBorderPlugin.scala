@@ -33,6 +33,8 @@ class WorldBorderPlugin extends JavaPlugin:
         updateConfig(WorldBorderConfig.load(plugin))
         this.saveDefaultConfig()
 
+        this.getServer.getPluginManager.registerEvents(new WorldBorderListener, this)
+
         this.getCommand("border").setExecutor(new WorldBorderCommand)
 
     def updateConfig(newConfig: PluginConfig): Unit =
