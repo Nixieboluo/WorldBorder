@@ -3,7 +3,7 @@ package me.sagirii.worldborder.subcommands
 import me.sagirii.worldborder.WorldBorderPlugin
 import org.bukkit.command.CommandSender
 
-class SubCommandHelp extends SubCommand:
+object SubCommandHelp extends SubCommand:
 
     override val name = "help"
 

@@ -5,7 +5,7 @@ import me.sagirii.worldborder.WorldBorderPlugin
 import me.sagirii.worldborder.WorldBorderPlugin.plugin
 import org.bukkit.command.CommandSender
 
-class SubCommandReload extends SubCommand:
+object SubCommandReload extends SubCommand:
 
     override val name = "reload"
 

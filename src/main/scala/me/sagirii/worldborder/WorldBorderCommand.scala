@@ -1,6 +1,5 @@
 package me.sagirii.worldborder
 
-import me.sagirii.worldborder.WorldBorderCommand.subCommands
 import me.sagirii.worldborder.subcommands.SubCommand
 import me.sagirii.worldborder.subcommands.SubCommandHelp
 import me.sagirii.worldborder.subcommands.SubCommandReload
@@ -9,13 +8,15 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-object WorldBorderCommand:
+object WorldBorderCommand extends CommandExecutor:
 
-    private val subCommandsList = List(new SubCommandHelp(), new SubCommandReload())
+    private val subCommandsList = List(
+      SubCommandHelp,
+      SubCommandReload
+    )
 
-    val subCommands: Map[String, SubCommand] = subCommandsList.map(cmd => cmd.name -> cmd).toMap
-
-class WorldBorderCommand extends CommandExecutor:
+    val subCommands: Map[String, SubCommand] =
+        subCommandsList.map(cmd => cmd.name -> cmd).toMap
 
     override def onCommand(
         sender: CommandSender,
