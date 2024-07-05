@@ -1,6 +1,7 @@
 package me.sagirii.worldborder.utility
 
 import org.bukkit.Location
+import org.bukkit.World
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause
@@ -26,10 +27,6 @@ object TpUtility:
 
                 ride.setVelocity(new Vector(0, 0, 0))
                 ride.teleport(rideLoc, TeleportCause.PLUGIN)
-
-                // Remount player onto the vehicle
-                ride.addPassenger(player)
-        end if
 
         // If the player have something ride on them
         val passengers = player.getPassengers.asScala.toList
