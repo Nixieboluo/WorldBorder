@@ -5,7 +5,7 @@ import me.sagirii.worldborder.WorldBorderPlugin
 import me.sagirii.worldborder.WorldBorderPlugin.plugin
 import org.bukkit.command.CommandSender
 
-object SubCommandReload extends SubCommand:
+object SubCommandReload extends SubCommand {
 
     override val name = "reload"
 
@@ -15,10 +15,11 @@ object SubCommandReload extends SubCommand:
 
     override val helpText = "Reloads configuration from disk."
 
-    override def execute(sender: CommandSender, params: List[String]): Boolean =
+    override def execute(sender: CommandSender, params: List[String]): Boolean = {
         val plugin = WorldBorderPlugin.plugin
         plugin.updateConfig(WorldBorderConfig.load(plugin))
         sender.sendMessage("Config reloaded from disk.")
         true
+    }
 
-end SubCommandReload
+}

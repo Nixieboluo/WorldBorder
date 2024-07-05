@@ -4,17 +4,18 @@ import me.sagirii.worldborder.config.BorderShape
 import me.sagirii.worldborder.config.Rectangle
 import org.bukkit.Location
 
-object ShapeUtility:
+object ShapeUtility {
 
-    def withinShape(loc: Location, border: BorderShape): Boolean =
-        border match
+    def withinShape(loc: Location, border: BorderShape): Boolean = {
+        border match {
         case Rectangle(options) => !(loc.getX < options.xMin || loc.getX > options.xMax ||
                 loc.getZ < options.zMin || loc.getZ > options.zMax)
         case _ => false
-        end match
+        }
+    }
 
-    def distanceToShape(loc: Location, border: BorderShape): (Double, Double) =
-        border match
+    def distanceToShape(loc: Location, border: BorderShape): (Double, Double) = {
+        border match {
         case Rectangle(options) =>
             val toXMin = loc.getX - options.xMin
             val toXMax = loc.getX - options.xMax
@@ -35,8 +36,7 @@ object ShapeUtility:
                 else toZMin
 
             (distanceX, distanceZ)
-        end match
+        }
+    }
 
-    end distanceToShape
-
-end ShapeUtility
+}

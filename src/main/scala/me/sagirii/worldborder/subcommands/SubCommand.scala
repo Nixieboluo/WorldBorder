@@ -2,7 +2,7 @@ package me.sagirii.worldborder.subcommands
 
 import org.bukkit.command.CommandSender
 
-trait SubCommand:
+trait SubCommand {
 
     val name: String
 
@@ -15,3 +15,5 @@ trait SubCommand:
     def execute(sender: CommandSender, params: List[String]): Boolean
 
     def showHelp(sender: CommandSender): Unit = sender.sendMessage(this.helpText)
+
+}

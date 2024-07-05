@@ -9,7 +9,7 @@ import me.sagirii.worldborder.listener.CreatureSpawnListener
 import me.sagirii.worldborder.listener.WorldBorderListener
 import org.bukkit.plugin.java.JavaPlugin
 
-object WorldBorderPlugin:
+object WorldBorderPlugin {
 
     @volatile
     private var _plugin: WorldBorderPlugin = _
@@ -25,11 +25,11 @@ object WorldBorderPlugin:
 
     private def config_=(config: PluginConfig): Unit = _config = config
 
-end WorldBorderPlugin
+}
 
-class WorldBorderPlugin extends JavaPlugin:
+class WorldBorderPlugin extends JavaPlugin {
 
-    override def onEnable(): Unit =
+    override def onEnable(): Unit = {
         if plugin == null then plugin = this
 
         // Load configuration and register tasks and listeners
@@ -38,8 +38,9 @@ class WorldBorderPlugin extends JavaPlugin:
         WorldBorderCheckTask.runTaskTimer(this, 0L, config.borderCheckInterval)
 
         this.getCommand("border").setExecutor(WorldBorderCommand)
+    }
 
-    def updateConfig(newConfig: PluginConfig): Unit =
+    def updateConfig(newConfig: PluginConfig): Unit = {
         config = newConfig
 
         // Save config to disk
@@ -50,15 +51,18 @@ class WorldBorderPlugin extends JavaPlugin:
         this.getServer.getPluginManager.registerEvents(WorldBorderListener, this)
 
         BlockPlaceListener.unregister()
-        if config.preventBlockPlace then
-            this.getServer.getPluginManager.registerEvents(BlockPlaceListener, this)
+        if config.preventBlockPlace then this.getServer.getPluginManager.registerEvents(
+          BlockPlaceListener,
+          this
+        )
 
         CreatureSpawnListener.unregister()
-        if config.preventMobSpawn then
-            this.getServer.getPluginManager.registerEvents(CreatureSpawnListener, this)
+        if config.preventMobSpawn then this.getServer.getPluginManager.registerEvents(
+          CreatureSpawnListener,
+          this
+        )
 
         getLogger.info("Configuration updated.")
+    }
 
-    end updateConfig
-
-end WorldBorderPlugin
+}

@@ -31,6 +31,8 @@ dependencies {
 tasks.withType<ScalaCompile> {
     sourceCompatibility = "21"
     targetCompatibility = "21"
+
+    scalaCompileOptions.additionalParameters = listOf("-no-indent")
 }
 
 tasks.withType<ProcessResources> {

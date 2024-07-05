@@ -3,7 +3,7 @@ package me.sagirii.worldborder.subcommands
 import me.sagirii.worldborder.WorldBorderPlugin
 import org.bukkit.command.CommandSender
 
-object SubCommandHelp extends SubCommand:
+object SubCommandHelp extends SubCommand {
 
     override val name = "help"
 
@@ -13,7 +13,10 @@ object SubCommandHelp extends SubCommand:
 
     override val helpText = "Shows the help message of World Border."
 
-    override def execute(sender: CommandSender, params: List[String]): Boolean =
+    override def execute(sender: CommandSender, params: List[String]): Boolean = {
         sender.sendMessage(this.helpText)
         sender.sendMessage(WorldBorderPlugin.config.borders.toString())
         true
+    }
+
+}

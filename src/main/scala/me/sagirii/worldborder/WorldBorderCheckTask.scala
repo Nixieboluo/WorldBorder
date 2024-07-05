@@ -6,15 +6,14 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
-
 import scala.jdk.CollectionConverters.*
 
-object WorldBorderCheckTask extends BukkitRunnable:
+object WorldBorderCheckTask extends BukkitRunnable {
 
-    override def run(): Unit =
+    override def run(): Unit = {
         val players = Bukkit.getServer.getOnlinePlayers.asScala.toList
 
-        for player <- players do
+        for player <- players do {
             val loc   = player.getLocation.clone()
             val world = player.getWorld.getName
 
@@ -22,11 +21,11 @@ object WorldBorderCheckTask extends BukkitRunnable:
             executeIfOutsideBorders(loc, world) { (distanceX, distanceZ) =>
                 TpUtility.teleport(player, loc.add(-distanceX, 0.0, -distanceZ))
 
-                def knockTask = new BukkitRunnable:
-                    override def run(): Unit =
+                def knockTask = new BukkitRunnable {
+                    override def run(): Unit = {
                         // Knock players back
                         val knockPower = WorldBorderPlugin.config.knockbackPower
-                        if knockPower > 0.0 then
+                        if knockPower > 0.0 then {
                             val velocityNormalizer =
                                 Math.max(Math.abs(distanceX), Math.abs(distanceZ)) / knockPower
 
@@ -43,18 +42,17 @@ object WorldBorderCheckTask extends BukkitRunnable:
 
                             // Throw player and their rides back
                             val velocity = new Vector(xVelocity, yVelocity, zVelocity)
-                            if ride != null then
-                                ride.setVelocity(velocity)
-                            else
+                            if ride != null then ride.setVelocity(velocity)
+                            else {
                                 player.setVelocity(velocity)
-                        end if
-                    end run
-
+                            }
+                        }
+                    }
+                }
                 knockTask.runTaskLater(WorldBorderPlugin.plugin, 0L)
             }
+        }
 
-        end for
+    }
 
-    end run
-
-end WorldBorderCheckTask
+}
