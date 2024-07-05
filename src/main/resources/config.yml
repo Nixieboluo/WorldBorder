@@ -1,0 +1,8 @@
+borderCheckInterval: 5
+denyEnderPearl: true
+portalRedirection: true
+preventBlockPlace: true
+preventMobSpawn: true
+knockbackPower: 1.5
+
+borders: { }

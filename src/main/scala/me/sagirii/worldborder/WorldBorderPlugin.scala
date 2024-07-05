@@ -33,8 +33,9 @@ class WorldBorderPlugin extends JavaPlugin:
         if plugin == null then plugin = this
 
         // Load configuration and register tasks and listeners
-        updateConfig(WorldBorderConfig.load(plugin))
         this.saveDefaultConfig()
+        updateConfig(WorldBorderConfig.load(plugin))
+        WorldBorderCheckTask.runTaskTimer(this, 0L, config.borderCheckInterval)
 
         this.getCommand("border").setExecutor(WorldBorderCommand)
 
@@ -43,10 +44,6 @@ class WorldBorderPlugin extends JavaPlugin:
 
         // Save config to disk
         WorldBorderConfig.save(plugin, newConfig)
-
-        // Restart tasks
-        this.getServer.getScheduler.cancelTasks(this)
-        WorldBorderCheckTask.runTaskTimer(this, 0L, config.borderCheckInterval)
 
         // Register events
         WorldBorderListener.unregister()

@@ -1,10 +1,11 @@
 package me.sagirii.worldborder.utility
 
+import me.sagirii.worldborder.WorldBorderPlugin
 import org.bukkit.Location
-import org.bukkit.World
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause
+import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.util.Vector
 
 import scala.jdk.CollectionConverters.*
@@ -28,6 +29,14 @@ object TpUtility:
                 ride.setVelocity(new Vector(0, 0, 0))
                 ride.teleport(rideLoc, TeleportCause.PLUGIN)
 
+                // Remount the player
+                val mountTask = new BukkitRunnable:
+                    override def run(): Unit = ride.addPassenger(player)
+
+                mountTask.runTaskLater(WorldBorderPlugin.plugin, 0L)
+            end if
+
+        end if
         // If the player have something ride on them
         val passengers = player.getPassengers.asScala.toList
         if passengers.nonEmpty then
