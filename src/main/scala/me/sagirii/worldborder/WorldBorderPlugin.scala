@@ -4,6 +4,9 @@ import me.sagirii.worldborder.WorldBorderPlugin.config
 import me.sagirii.worldborder.WorldBorderPlugin.config_=
 import me.sagirii.worldborder.WorldBorderPlugin.plugin
 import me.sagirii.worldborder.config.PluginConfig
+import me.sagirii.worldborder.listener.BlockPlaceListener
+import me.sagirii.worldborder.listener.CreatureSpawnListener
+import me.sagirii.worldborder.listener.WorldBorderListener
 import org.bukkit.plugin.java.JavaPlugin
 
 object WorldBorderPlugin:
@@ -33,9 +36,7 @@ class WorldBorderPlugin extends JavaPlugin:
         updateConfig(WorldBorderConfig.load(plugin))
         this.saveDefaultConfig()
 
-        this.getServer.getPluginManager.registerEvents(new WorldBorderListener, this)
-
-        this.getCommand("border").setExecutor(new WorldBorderCommand)
+        this.getCommand("border").setExecutor(WorldBorderCommand)
 
     def updateConfig(newConfig: PluginConfig): Unit =
         config = newConfig
@@ -45,8 +46,18 @@ class WorldBorderPlugin extends JavaPlugin:
 
         // Restart tasks
         this.getServer.getScheduler.cancelTasks(this)
-        new WorldBorderCheckTask().runTaskTimer(this, 0L, 10L)
+        WorldBorderCheckTask.runTaskTimer(this, 0L, 10L)
+
+        // Register events
+        WorldBorderListener.unregister()
+        this.getServer.getPluginManager.registerEvents(WorldBorderListener, this)
+        BlockPlaceListener.unregister()
+        this.getServer.getPluginManager.registerEvents(BlockPlaceListener, this)
+        CreatureSpawnListener.unregister()
+        this.getServer.getPluginManager.registerEvents(CreatureSpawnListener, this)
 
         getLogger.info("Configuration updated.")
+
+    end updateConfig
 
 end WorldBorderPlugin

@@ -26,4 +26,14 @@ object BorderUtility:
 
             callback(distanceX, distanceZ)
 
+    def executeIfOutsideBorders(
+        loc: Location,
+        world: String
+    )(callback: () => Unit): Unit =
+        val borders         = bordersInWorld(world).values.toSeq
+        val withinAnyBorder = borders.exists(border => withinShape(loc, border.shape))
+
+        if borders.nonEmpty && !withinAnyBorder then
+            callback()
+
 end BorderUtility
