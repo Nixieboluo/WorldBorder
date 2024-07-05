@@ -36,12 +36,27 @@ object WorldBorderConfig:
                 name -> BorderConfig(world, shapeConfig)
         }.toMap
 
-        PluginConfig(bordersConfig)
+        PluginConfig(
+          borderCheckInterval = fileConfig.getLong("borderCheckInterval"),
+          denyEnderPearl = fileConfig.getBoolean("denyEnderPearl"),
+          portalRedirection = fileConfig.getBoolean("portalRedirection"),
+          preventBlockPlace = fileConfig.getBoolean("preventBlockPlace"),
+          preventMobSpawn = fileConfig.getBoolean("preventMobSpawn"),
+          knockbackPower = fileConfig.getDouble("knockbackPower"),
+          borders = bordersConfig
+        )
 
     end load
 
     def save(plugin: WorldBorderPlugin, config: PluginConfig): Unit =
         val fileConfig = plugin.getConfig
+
+        fileConfig.set("borderCheckInterval", config.borderCheckInterval)
+        fileConfig.set("denyEnderPearl", config.denyEnderPearl)
+        fileConfig.set("portalRedirection", config.portalRedirection)
+        fileConfig.set("preventBlockPlace", config.preventBlockPlace)
+        fileConfig.set("preventMobSpawn", config.preventMobSpawn)
+        fileConfig.set("knockbackPower", config.knockbackPower)
 
         fileConfig.set("borders", null)
         for (name, border) <- config.borders do

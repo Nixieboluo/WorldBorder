@@ -46,15 +46,19 @@ class WorldBorderPlugin extends JavaPlugin:
 
         // Restart tasks
         this.getServer.getScheduler.cancelTasks(this)
-        WorldBorderCheckTask.runTaskTimer(this, 0L, 10L)
+        WorldBorderCheckTask.runTaskTimer(this, 0L, config.borderCheckInterval)
 
         // Register events
         WorldBorderListener.unregister()
         this.getServer.getPluginManager.registerEvents(WorldBorderListener, this)
+
         BlockPlaceListener.unregister()
-        this.getServer.getPluginManager.registerEvents(BlockPlaceListener, this)
+        if config.preventBlockPlace then
+            this.getServer.getPluginManager.registerEvents(BlockPlaceListener, this)
+
         CreatureSpawnListener.unregister()
-        this.getServer.getPluginManager.registerEvents(CreatureSpawnListener, this)
+        if config.preventMobSpawn then
+            this.getServer.getPluginManager.registerEvents(CreatureSpawnListener, this)
 
         getLogger.info("Configuration updated.")
 
