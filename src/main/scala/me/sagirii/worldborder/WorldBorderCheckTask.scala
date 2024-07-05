@@ -8,13 +8,12 @@ import org.bukkit.scheduler.BukkitRunnable
 
 import scala.jdk.CollectionConverters.*
 
-class WorldBorderCheckTask extends BukkitRunnable:
+object WorldBorderCheckTask extends BukkitRunnable:
 
     override def run(): Unit =
         val players = Bukkit.getServer.getOnlinePlayers.asScala.toList
 
         for player <- players do
-
             val loc   = player.getLocation.clone()
             val world = player.getWorld.getName
 
