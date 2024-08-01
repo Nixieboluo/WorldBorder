@@ -19,21 +19,26 @@ object WorldBorderConfig {
             for (name <- bordersSection.getKeys(false).asScala.toSeq) yield {
                 val borderItemSection = bordersSection.getConfigurationSection(name)
                 val world             = borderItemSection.getString("world")
-                val optionsSection    = borderItemSection.getConfigurationSection("options")
+
                 val shape = BorderShapeType.fromString(borderItemSection.getString("shape"))
+                val shapeOptionsSection = borderItemSection.getConfigurationSection("shapeOptions")
                 val shapeConfig = {
                     shape match {
                     case BorderShapeType.RECTANGLE => Rectangle(RectangleOptions(
-                          optionsSection.getInt("xMin"),
-                          optionsSection.getInt("xMax"),
-                          optionsSection.getInt("zMin"),
-                          optionsSection.getInt("zMax")
+                          shapeOptionsSection.getInt("xMin"),
+                          shapeOptionsSection.getInt("xMax"),
+                          shapeOptionsSection.getInt("zMin"),
+                          shapeOptionsSection.getInt("zMax")
                         ))
                     }
                 }
 
+                val commonOptionsSections = borderItemSection.getConfigurationSection("options")
                 val commonOptions = BorderOptions(
-                  BorderHeightLimit(optionsSection.getInt("yMin"), optionsSection.getInt("yMax"))
+                  BorderHeightLimit(
+                    commonOptionsSections.getInt("yMin"),
+                    commonOptionsSections.getInt("yMax")
+                  )
                 )
 
                 name -> BorderConfig(world, shapeConfig, commonOptions)
@@ -49,7 +54,6 @@ object WorldBorderConfig {
           knockbackPower = fileConfig.getDouble("knockbackPower"),
           borders = bordersConfig
         )
-
     }
 
     def save(plugin: WorldBorderPlugin, config: PluginConfig): Unit = {
@@ -64,15 +68,16 @@ object WorldBorderConfig {
 
         fileConfig.set("borders", null)
         for (name, border) <- config.borders do {
-            val shape = border.shape.shapeType
             fileConfig.set(s"borders.$name.world", border.world)
-            fileConfig.set(s"borders.$name.shape", shape.toString)
+
+            // Shape options
+            fileConfig.set(s"borders.$name.shape", border.shape.shapeType.toString)
             border.shape match {
             case Rectangle(options) =>
-                fileConfig.set(s"borders.$name.options.xMin", options.xMin)
-                fileConfig.set(s"borders.$name.options.xMax", options.xMax)
-                fileConfig.set(s"borders.$name.options.zMin", options.zMin)
-                fileConfig.set(s"borders.$name.options.zMax", options.zMax)
+                fileConfig.set(s"borders.$name.shapeOptions.xMin", options.xMin)
+                fileConfig.set(s"borders.$name.shapeOptions.xMax", options.xMax)
+                fileConfig.set(s"borders.$name.shapeOptions.zMin", options.zMin)
+                fileConfig.set(s"borders.$name.shapeOptions.zMax", options.zMax)
             }
 
             // Common options
@@ -81,7 +86,6 @@ object WorldBorderConfig {
         }
 
         plugin.saveConfig()
-
     }
 
 }
