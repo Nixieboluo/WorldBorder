@@ -1,11 +1,12 @@
-package me.sagirii.worldborder
+package me.sagirii.worldborder.config
 
+import me.sagirii.worldborder.WorldBorderPlugin
 import me.sagirii.worldborder.config.*
 import scala.jdk.CollectionConverters.*
 
 object WorldBorderConfig {
 
-    def load(plugin: WorldBorderPlugin): PluginConfig = {
+    def load(plugin: WorldBorderPlugin): Config = {
         plugin.reloadConfig()
         val fileConfig = plugin.getConfig
 
@@ -45,7 +46,7 @@ object WorldBorderConfig {
             }
         }.toMap
 
-        PluginConfig(
+        Config(
           borderCheckInterval = fileConfig.getLong("borderCheckInterval"),
           denyEnderPearl = fileConfig.getBoolean("denyEnderPearl"),
           portalRedirection = fileConfig.getBoolean("portalRedirection"),
@@ -56,7 +57,7 @@ object WorldBorderConfig {
         )
     }
 
-    def save(plugin: WorldBorderPlugin, config: PluginConfig): Unit = {
+    def save(plugin: WorldBorderPlugin, config: Config): Unit = {
         val fileConfig = plugin.getConfig
 
         fileConfig.set("borderCheckInterval", config.borderCheckInterval)

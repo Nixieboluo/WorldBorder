@@ -3,7 +3,8 @@ package me.sagirii.worldborder
 import me.sagirii.worldborder.WorldBorderPlugin.config
 import me.sagirii.worldborder.WorldBorderPlugin.config_=
 import me.sagirii.worldborder.WorldBorderPlugin.plugin
-import me.sagirii.worldborder.config.PluginConfig
+import me.sagirii.worldborder.config.Config
+import me.sagirii.worldborder.config.WorldBorderConfig
 import me.sagirii.worldborder.listener.BlockPlaceListener
 import me.sagirii.worldborder.listener.CreatureSpawnListener
 import me.sagirii.worldborder.listener.WorldBorderListener
@@ -15,15 +16,15 @@ object WorldBorderPlugin {
     private var _plugin: WorldBorderPlugin = _
 
     @volatile
-    private var _config: PluginConfig = _
+    private var _config: Config = _
 
     def plugin: WorldBorderPlugin = _plugin
 
-    def config: PluginConfig = _config
+    def config: Config = _config
 
     private def plugin_=(plugin: WorldBorderPlugin): Unit = _plugin = plugin
 
-    private def config_=(config: PluginConfig): Unit = _config = config
+    private def config_=(config: Config): Unit = _config = config
 
 }
 
@@ -40,7 +41,7 @@ class WorldBorderPlugin extends JavaPlugin {
         this.getCommand("border").setExecutor(WorldBorderCommand)
     }
 
-    def updateConfig(newConfig: PluginConfig): Unit = {
+    def updateConfig(newConfig: Config): Unit = {
         config = newConfig
 
         // Save config to disk
