@@ -32,7 +32,11 @@ object WorldBorderConfig {
                     }
                 }
 
-                name -> BorderConfig(world, shapeConfig)
+                val commonOptions = BorderOptions(
+                  BorderHeightLimit(optionsSection.getInt("yMin"), optionsSection.getInt("yMax"))
+                )
+
+                name -> BorderConfig(world, shapeConfig, commonOptions)
             }
         }.toMap
 
@@ -70,6 +74,10 @@ object WorldBorderConfig {
                 fileConfig.set(s"borders.$name.options.zMin", options.zMin)
                 fileConfig.set(s"borders.$name.options.zMax", options.zMax)
             }
+
+            // Common options
+            fileConfig.set(s"borders.$name.options.yMin", border.options.heightLimit.min)
+            fileConfig.set(s"borders.$name.options.yMax", border.options.heightLimit.max)
         }
 
         plugin.saveConfig()

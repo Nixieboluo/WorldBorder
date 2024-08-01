@@ -18,34 +18,35 @@ object WorldBorderCheckTask extends BukkitRunnable {
             val world = player.getWorld.getName
 
             // Teleport player back into the closest border
-            executeIfOutsideBorders(loc, world) { (distanceX, distanceZ) =>
-                TpUtility.teleport(player, loc.add(-distanceX, 0.0, -distanceZ))
+            executeIfOutsideBorders(loc, world) { (dx, dy, dz) =>
+                TpUtility.teleport(player, loc.add(-dx, -dy, -dz))
 
-                def knockTask = new BukkitRunnable {
-                    override def run(): Unit = {
-                        // Knock players back
-                        val knockPower = WorldBorderPlugin.config.knockbackPower
-                        if knockPower > 0.0 then {
-                            val velocityNormalizer =
-                                Math.max(Math.abs(distanceX), Math.abs(distanceZ)) / knockPower
+                def knockTask: BukkitRunnable = () => {
+                    // Knock players back
+                    val knockPower = WorldBorderPlugin.config.knockbackPower
+                    if knockPower > 0.0 then {
+                        val velocityNormalizer =
+                            Math.max(Math.abs(dx), Math.abs(dz)) / knockPower
 
-                            val xVelocity =
-                                if velocityNormalizer <= 0 then 0
-                                else -distanceX / velocityNormalizer
-                            val zVelocity =
-                                if velocityNormalizer <= 0 then 0
-                                else -distanceZ / velocityNormalizer
-                            // If the player is flying or riding something, do not throw the player up
-                            val ride = player.getVehicle
-                            val yVelocity =
-                                if player.isFlying || ride != null then 0 else knockPower
+                        val xVelocity =
+                            if velocityNormalizer <= 0 then 0
+                            else -dx / velocityNormalizer
+                        val zVelocity =
+                            if velocityNormalizer <= 0 then 0
+                            else -dz / velocityNormalizer
+                        // If the player is flying or riding something, do not throw the player up
+                        val ride = player.getVehicle
+                        val yVelocity =
+                            if player.isFlying || ride != null then 0
+                            // If the player is higher than the upper bound, throw down instead
+                            else if dy > 0 then -knockPower
+                            else knockPower
 
-                            // Throw player and their rides back
-                            val velocity = new Vector(xVelocity, yVelocity, zVelocity)
-                            if ride != null then ride.setVelocity(velocity)
-                            else {
-                                player.setVelocity(velocity)
-                            }
+                        // Throw player and their rides back
+                        val velocity = new Vector(xVelocity, yVelocity, zVelocity)
+                        if ride != null then ride.setVelocity(velocity)
+                        else {
+                            player.setVelocity(velocity)
                         }
                     }
                 }

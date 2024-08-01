@@ -17,12 +17,12 @@ object WorldBorderListener extends Listener {
         val toWorld = toLoc.getWorld.getName
 
         executeIfOutsideBorders(toLoc, toWorld) {
-            (distanceX, distanceZ) =>
+            (dx, dy, dz) =>
                 if WorldBorderPlugin.config.denyEnderPearl &&
                 event.getCause == PlayerTeleportEvent.TeleportCause.ENDER_PEARL
                 then event.setCancelled(true)
 
-                event.setTo(toLoc.add(-distanceX, 0.0, -distanceZ))
+                event.setTo(toLoc.add(-dx, -dy, -dz))
         }
     }
 
@@ -34,7 +34,7 @@ object WorldBorderListener extends Listener {
         val toWorld = toLoc.getWorld.getName
 
         executeIfOutsideBorders(toLoc, toWorld) {
-            (distanceX, distanceZ) => event.setTo(toLoc.add(-distanceX, 0.0, -distanceZ))
+            (dx, dy, dz) => event.setTo(toLoc.add(-dx, -dy, -dz))
         }
     }
 
